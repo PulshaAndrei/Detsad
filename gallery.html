@@ -2,8 +2,19 @@
 <html dir="ltr" lang="en-US">
 <head>
     <meta charset="utf-8">
-    <title>Главная</title>
+    <title>Галерея</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="js/jquery.tiles.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://necolas.github.com/normalize.css/2.0.1/normalize.css"/>
+    <link rel="stylesheet" href="css/jquery.tiles.min.css"/>
+    <link rel="stylesheet" href="css/styles.css" media="screen"/>
 </head>
 <body>
 	<header>
@@ -52,14 +63,97 @@
 			</section>
 		</div>
 		<div class="center">
-			<h1>Новости</h1>
+			<h1>Галерея</h1>
 			<section>
-				<article>
-					<a href="article.html"><h2>Сколько можно сидеть детям за компьютером?</h2></a>
-					<img src="img/img1.jpg" class="image_left">
-					<p>Пятилетний ребенок, активно пользующийся благами Интернета на родительском компьютере и самостоятельно включающий себе в качестве развлечений мультики или онлайн-игры, – явление в современном обществе уже привычное. Только полезное ли? <br></p>
-					<a href="article.html" style="float:right">Читать далее</a>
-				</article>
+				<div class="slider-wrap">
+			      <div class="slider">
+			        <p><strong>Аврелий Августин:</strong> Забавы взрослых называются делом, у детей они тоже дело.</p>
+			        <img src="img/img01.jpg"/>
+			        <p><strong>Эрма Бомбек:</strong> Ребенок больше всего нуждается в вашей любви как раз тогда, когда он меньше всего ее заслуживает.</p>
+			        <img src="img/img02.jpg"/>
+			        <p><strong>Виктор Гюго: </strong> Дети сразу и непринужденно осваиваются со счастьем, ибо они сами по природе своей — радость и счастье.</p>
+			        <img src="img/img03.jpg"/>
+			        <p><strong>Федор Достоевский: </strong> Без детей нельзя было бы так любить человечество.</p>
+			        <img src="img/img04.jpg"/>
+			        <p><strong>Владислав Гжещик:</strong> В театре жизни единственные настоящие зрители — дети.</p>
+			        <img src="img/img05.jpg"/>
+			        <p><strong>Мориц-Готлиб Сафир:</strong> Дети — вот причина, почему небо не разрушило еще мира.</p>
+			        <img src="img/img06.jpg"/>
+			        <p><strong>Василий Сухомлинский:</strong> Дети должны жить в мире красоты, игры, сказки, музыки, рисунка, фантазии, творчества.</p>
+			        <img src="img/img07.jpg"/>
+			        <p><strong>Жозеф Жубер:</strong> Детям нужны не поучения, а примеры.</p>
+			        <img src="img/img08.jpg"/>
+			        <p><strong>Виктор Гюго:</strong> Нет на земле гимна торжественнее, чем лепет детских уст.</p>
+			        <img src="img/img09.jpg"/>
+			        <p><strong>Иоганн Шиллер:</strong> В игре детей есть часто смысл глубокий.</p>
+			        <img src="img/img10.jpg"/>
+			        <p><strong>Владимир Одоевский:</strong> Будьте сами и человеком, и младенцем, для того, чтобы учить ребенка.</p>
+			      </div>
+			    </div>
+
+			    <script>
+
+			      var $slider = $('.slider-wrap');
+			      var html = $slider.html();
+
+			      // Options
+
+			      var defaults = {
+			        thumbSize: 20,
+			        onSlideshowEnd: function(){ $('.stop, .start').toggle() }
+			      };
+
+			      var effects = {
+			        'default': { x:6, y:4, random: true },
+			        simple: { x:6, y:4, effect: 'simple', random: true },
+			        left: { x:1, y:8, effect: 'left' },
+			        up: { x:20, y:1, effect: 'up', rewind: 60, backReverse: true },
+			        leftright: { x:1, y:8, effect: 'leftright' },
+			        updown: { x:20, y:1, effect: 'updown', cssSpeed: 500, backReverse: true },
+			        switchlr: { x:20, y:1, effect: 'switchlr', backReverse: true },
+			        switchud: { x:1, y:8, effect: 'switchud' },
+			        fliplr: { x:20, y:1, effect: 'fliplr', backReverse: true },
+			        flipud: { x:20, y:3, effect: 'flipud', reverse: true, rewind: 75 },
+			        reduce: { x:6, y:4, effect: 'reduce' },
+			        360: { x:1, y:1, effect: '360', fade: true, cssSpeed: 600 }
+			      };
+
+			      $('#effects-select').change(function() {
+			        var effect = $(this).val();
+			        $slider.fadeTo( 0,0 ).html( html );
+			        $('.stop').hide();
+			        $('.start').show();
+			        setTimeout(function() {
+			          $('.slider').tilesSlider( $.extend( {}, defaults, effects[ effect ] ) );
+			          $slider.fadeTo( 0,1 );
+			          $('body').removeClass('tiles-preload');
+			        }, 100 );
+			        $('.code').empty().html(function() {
+			          var e = effects[ effect ], c = [];
+			          for ( var i in e ) {
+			            if ( i !== 'effect' ) {
+			              c.push('<code>'+ i +': '+ e[i] +'</code>');
+			            }
+			          }
+			          return c.join('');
+			        });
+			      });
+
+			      $('.start').click(function() {
+			        $(this).hide();
+			        $('.stop').show();
+			        $('.slider').tilesSlider('start')
+			      });
+
+			      $('.stop').click(function() {
+			        $(this).hide();
+			        $('.start').show()
+			        $('.slider').tilesSlider('stop')
+			      });
+
+			      $('.slider').tilesSlider( $.extend( {}, defaults, effects['default'] ) );
+
+			    </script>
 			</section>
 		</div>
 		<div class="bok">
